@@ -16,6 +16,7 @@ android {
 
         buildConfigField "String", "BASE_URL_API", "\"https://api.covid19api.com/\""
         buildConfigField "String", "BASE_URL_NEWS", "\"https://newsapi.org/v2/\""
+        // Can be put in NDK or any other methods to be secured safely, but this is not that important anyway
         buildConfigField "String", "TOKEN_NEWS", "\"1888715bfdbd451b8161b6d85ad0b62a\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
