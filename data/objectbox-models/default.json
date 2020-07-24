@@ -1,0 +1,150 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:3860251090975337902",
+      "lastPropertyId": "8:5193463424043223365",
+      "name": "HomeEntity",
+      "properties": [
+        {
+          "id": "1:6556187291148138399",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5078328093447179535",
+          "name": "new_confirmed",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "3:3934720603129231145",
+          "name": "total_confirmed",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "4:4713596720330658567",
+          "name": "new_recovered",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "5:2874989197538795789",
+          "name": "total_recovered",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "6:5096673980353945885",
+          "name": "new_deaths",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "7:884833382710663554",
+          "name": "total_deaths",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "8:5193463424043223365",
+          "name": "last_refreshed",
+          "type": 10
+        }
+      ],
+      "relations": [
+        {
+          "id": "2:1098571393759226395",
+          "name": "countries",
+          "targetId": "2:4886556382491138302"
+        }
+      ]
+    },
+    {
+      "id": "2:4886556382491138302",
+      "lastPropertyId": "11:5240410813601895096",
+      "name": "CountryItemEntity",
+      "properties": [
+        {
+          "id": "1:4755900170768893517",
+          "name": "country_name",
+          "type": 9
+        },
+        {
+          "id": "2:7627425887855312768",
+          "name": "country_slug",
+          "type": 9
+        },
+        {
+          "id": "3:7836793454575523295",
+          "name": "new_confirmed",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "4:5644030982346354621",
+          "name": "total_confirmed",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "5:3923167617018505424",
+          "name": "new_recovered",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "6:1551716014439748041",
+          "name": "total_recovered",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "7:4661058954864861950",
+          "name": "new_deaths",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "8:4999245736594171573",
+          "name": "total_deaths",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "9:5366047483854019571",
+          "name": "last_updated",
+          "type": 10
+        },
+        {
+          "id": "10:5279587623940501773",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "2:4886556382491138302",
+  "lastIndexId": "1:3569801398045608678",
+  "lastRelationId": "2:1098571393759226395",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [
+    3569801398045608678
+  ],
+  "retiredPropertyUids": [
+    5240410813601895096
+  ],
+  "retiredRelationUids": [
+    6152222459843487897
+  ],
+  "version": 1
+}

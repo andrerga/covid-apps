@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.andre.apps.covid19updates.ui.home.HomeFragment"
+        android:label="home_fragment"
+        tools:layout="@layout/home_fragment"/>
+
+    <fragment
+        android:id="@+id/countryListFragment"
+        android:name="com.andre.apps.covid19updates.ui.countries.CountryListFragment"
+        android:label="country_list_fragment"
+        tools:layout="@layout/country_list_fragment"/>
+
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.andre.apps.covid19updates.ui.news.NewsFragment"
+        android:label="news_fragment"
+        tools:layout="@layout/news_fragment">
+        <action
+            android:id="@+id/action_newsFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.andre.apps.covid19updates.ui.web.WebViewFragment"
+        android:label="web_view_fragment"
+        tools:layout="@layout/web_view_fragment">
+        <argument
+            android:name="url"
+            app:argType="string" />
+        <argument
+            android:name="transition_name"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+</navigation>

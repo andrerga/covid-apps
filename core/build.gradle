@@ -1,0 +1,106 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            proguardFiles 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = rootProject.jdkVersion
+        targetCompatibility = rootProject.jdkVersion
+    }
+
+    kotlinOptions {
+        jvmTarget = rootProject.jdkVersionString
+    }
+}
+
+ext {
+    threeTenVersion = '1.2.2'
+    timberVersion = '4.7.1'
+    truthVersion = '1.0.1'
+    workVersion = '2.3.4'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //// START: Main Packages
+
+    // Timber logging
+    api "com.jakewharton.timber:timber:$timberVersion"
+
+    // Core packages
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    api "androidx.core:core-ktx:$coreVersion"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+
+    // Work
+    implementation "androidx.work:work-runtime-ktx:$workVersion"
+
+    // Dagger
+    api 'javax.annotation:jsr250-api:1.0'
+    api "com.google.dagger:dagger-android:$daggerVersion"
+    api "com.google.dagger:dagger-android-support:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+
+//    implementation "com.jakewharton.threetenabp:threetenabp:$threeTenVersion"
+
+    //// END
+
+    //// START: Testing Packages
+
+    // Coroutines
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+
+    // Core package test
+    testImplementation "androidx.test:core:$testVersion"
+    testImplementation "androidx.arch.core:core-testing:$archTestVersion"
+
+    // Junit
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
+
+    // Mockito
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
+    androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
+    androidTestImplementation "org.mockito:mockito-android:$mockitoVersion"
+
+    // Assertions
+    androidTestImplementation "androidx.test.ext:truth:$testVersion"
+    androidTestImplementation "com.google.truth:truth:$truthVersion"
+
+    // Work
+    androidTestImplementation "androidx.work:work-testing:$workVersion"
+
+    // Daggerd
+    kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    //// END
+}

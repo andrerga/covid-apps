@@ -1,0 +1,105 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'io.objectbox'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        buildConfigField "String", "BASE_URL_API", "\"https://api.covid19api.com/\""
+        buildConfigField "String", "BASE_URL_NEWS", "\"https://newsapi.org/v2/\""
+        buildConfigField "String", "TOKEN_NEWS", "\"1888715bfdbd451b8161b6d85ad0b62a\""
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            proguardFiles 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = rootProject.jdkVersion
+        targetCompatibility = rootProject.jdkVersion
+    }
+
+    kotlinOptions {
+        jvmTarget = rootProject.jdkVersionString
+    }
+
+    kapt {
+        arguments {
+            arg("objectbox.debug", true)
+        }
+    }
+}
+
+ext {
+    okhttpVersion = "3.12.2"
+    moshiVersion = "1.9.2"
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //// START: Main packages
+
+    // POKO libraries
+    implementation "com.squareup.moshi:moshi:$moshiVersion"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+
+    // Networking
+    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+
+    // Dagger
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    // LocalDB
+    kapt "io.objectbox:objectbox-processor:$objectboxVersion"
+    implementation "io.objectbox:objectbox-android:$objectboxVersion"
+    implementation "io.objectbox:objectbox-kotlin:$objectboxVersion"
+
+    //// END
+
+    //// START: Testing packages
+
+    // Coroutines
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+
+    // Junit
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
+
+    // Mockito
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
+    androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
+    androidTestImplementation "org.mockito:mockito-android:$mockitoVersion"
+
+    // Mock web server
+    testImplementation "com.squareup.okhttp3:mockwebserver:$okhttpVersion"
+
+    // Dagger
+    kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    //// END
+
+    implementation project(path: ':core')
+}

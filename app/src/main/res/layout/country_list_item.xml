@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorError"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/nameText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
+        android:maxLines="2"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="United Kingdom of Great Britain and Northern Ireland" />
+
+    <TextView
+        android:id="@+id/confirmedHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Total Confirmed:"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/recoveredHeader"
+        app:layout_constraintTop_toBottomOf="@id/nameText" />
+
+    <TextView
+        android:id="@+id/recoveredHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Total Recovered:"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/confirmedHeader" />
+
+    <TextView
+        android:id="@+id/deathsHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Total Deaths:"
+        android:textSize="12sp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/recoveredHeader"
+        app:layout_constraintTop_toBottomOf="@id/recoveredHeader" />
+
+    <TextView
+        android:id="@+id/confirmedCountText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/confirmedHeader"
+        app:layout_constraintLeft_toRightOf="@id/confirmedHeader"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/confirmedHeader"
+        tools:text="200.000" />
+
+    <TextView
+        android:id="@+id/recoveredCountText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/recoveredHeader"
+        app:layout_constraintLeft_toRightOf="@id/recoveredHeader"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/recoveredHeader"
+        tools:text="100.000" />
+
+    <TextView
+        android:id="@+id/deathsCountText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/deathsHeader"
+        app:layout_constraintLeft_toRightOf="@id/deathsHeader"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/deathsHeader"
+        tools:text="100.000" />
+</androidx.constraintlayout.widget.ConstraintLayout>
