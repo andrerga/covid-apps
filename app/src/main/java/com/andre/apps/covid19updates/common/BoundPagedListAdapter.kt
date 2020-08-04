@@ -6,7 +6,11 @@ import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.viewbinding.ViewBinding
 
-abstract class BoundPagedListAdapter<T, V : ViewBinding>(diffCallback: DiffUtil.ItemCallback<T>) : PagedListAdapter<T, BoundViewHolder<V>>(AsyncDifferConfig.Builder<T>(diffCallback).build()) {
+abstract class BoundPagedListAdapter<T, V : ViewBinding>(
+    diffCallback: DiffUtil.ItemCallback<T>
+) : PagedListAdapter<T, BoundViewHolder<V>>(
+    AsyncDifferConfig.Builder<T>(diffCallback).build()
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoundViewHolder<V> {
         val binding = createBinding(parent, viewType)

@@ -7,7 +7,6 @@ import com.andre.apps.covid19updates.core.feature.news.model.News
 import com.andre.apps.covid19updates.core.feature.news.model.NewsItem
 import com.andre.apps.covid19updates.core.feature.news.repo.NewsRemoteRepository
 import com.andre.apps.covid19updates.core.feature.news.usecase.GetNews
-import com.andre.apps.covid19updates.core.feature.summary.model.CountryItem
 import com.andre.apps.covid19updates.core.getOrAwaitValue
 import com.andre.apps.covid19updates.core.runBlockingTest
 import com.andre.apps.covid19updates.core.util.parseToDate
@@ -54,14 +53,32 @@ class NewsUnitTest {
     @Test
     fun test_ExecuteMock() {
         coroutinesRule.runBlockingTest {
-            `when`(repository.getCurrentNews(ArgumentMatchers.anyInt())).thenReturn(Result.success(News(
-                1,
-                listOf(
-                    NewsItem("Title", "16-04-2020".parseToDate("dd-MM-yyyy"), "Subtitle", "John Doe", null, "www.123.xyz", "ABC News")
+            `when`(
+                repository.getCurrentNews(
+                    ArgumentMatchers.anyInt()
+                )
+            ).thenReturn(
+                Result.success(
+                    News(
+                        total = 1,
+                        items = listOf(
+                            NewsItem(
+                                headline = "Title",
+                                date = "16-04-2020".parseToDate("dd-MM-yyyy"),
+                                subtitle = "Subtitle",
+                                editorName = "John Doe",
+                                imageUrl = null,
+                                contentUrl = "www.123.xyz",
+                                source = "ABC News"
+                            )
+                        )
+                    )
                 ))
-            ))
 
-            val result = getNews.execute(1, coroutinesRule.testDispatcherProvider).getOrAwaitValue()
+            val result = getNews.execute(
+                1,
+                coroutinesRule.testDispatcherProvider
+            ).getOrAwaitValue()
             assertEquals(Result.Status.SUCCESS, result.status)
         }
     }

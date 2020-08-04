@@ -1,6 +1,5 @@
 package com.andre.apps.covid19updates.data.feature.summary.entity
 
-import io.objectbox.annotation.Backlink
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
 import io.objectbox.annotation.NameInDb

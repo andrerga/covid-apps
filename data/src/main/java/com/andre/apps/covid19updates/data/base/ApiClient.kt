@@ -22,14 +22,27 @@ class ApiClient(private val client: OkHttpClient, private val moshi: Moshi) {
             .addHeader("Accept", "application/json")
 
         val urlBuilder = when (type) {
-            UrlType.News -> HttpUrl.parse(BASE_URL_NEWS + url)!!.newBuilder().addQueryParameter("apiKey", TOKEN_NEWS)
-            else -> HttpUrl.parse(BASE_URL_API + url)!!.newBuilder()
+            UrlType.News -> HttpUrl.parse(BASE_URL_NEWS + url)!!
+                .newBuilder()
+                .addQueryParameter("apiKey", TOKEN_NEWS)
+            else -> HttpUrl.parse(BASE_URL_API + url)!!
+                .newBuilder()
         }
 
-        return Builder(reqBuilder, client, moshi, urlBuilder)
+        return Builder(
+            reqBuilder,
+            client,
+            moshi,
+            urlBuilder
+        )
     }
 
-    internal class Builder(internal val builder: Request.Builder, private val client: OkHttpClient, private val moshi: Moshi, private val urlBuilder: HttpUrl.Builder) {
+    internal class Builder(
+        internal val builder: Request.Builder,
+        private val client: OkHttpClient,
+        private val moshi: Moshi,
+        private val urlBuilder: HttpUrl.Builder
+    ) {
 
         // Byte order mark. See: https://stackoverflow.com/a/2223926
         private val utf8Bom: ByteString = ByteString.decodeHex("EFBBBF")
@@ -47,7 +60,10 @@ class ApiClient(private val client: OkHttpClient, private val moshi: Moshi) {
         internal fun requestPost(obj: JSONObject): Builder {
             builder.url(urlBuilder.build())
 
-            val body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), obj.toString())
+            val body = RequestBody.create(
+                MediaType.parse("application/json; charset=utf-8"),
+                obj.toString()
+            )
             builder.post(body)
             return this
         }
@@ -76,28 +92,37 @@ class ApiClient(private val client: OkHttpClient, private val moshi: Moshi) {
                             }
 
                             val reader = JsonReader.of(source)
-                            val result = moshi.adapter(T::class.java).fromJson(reader)!!
+                            val result = moshi.adapter(T::class.java)
+                                .fromJson(reader)!!
 
                             continuation.resume(result)
                         } catch (e: IOException) {
                             val sourceString = value.string()
                             if (sourceString.isNullOrEmpty()) {
-                                continuation.resumeWithException(CancellationException("Unknown Error"))
+                                continuation.resumeWithException(
+                                    CancellationException("Unknown Error")
+                                )
                             } else {
                                 val returns = sourceString.split("[ ,]+")
                                 if (returns.count() == 1) {
-                                    continuation.resumeWithException(CancellationException(returns[0]))
+                                    continuation.resumeWithException(
+                                        CancellationException(returns[0])
+                                    )
                                     return
                                 }
 
                                 if (returns.count() < 3) {
-                                    continuation.resumeWithException(CancellationException("Unknown Error"))
+                                    continuation.resumeWithException(
+                                        CancellationException("Unknown Error")
+                                    )
                                     return
                                 }
 
                                 val chunk = returns[1]
                                 val message = chunk.substring(chunk.indexOf("=") + 1)
-                                continuation.resumeWithException(CancellationException(message))
+                                continuation.resumeWithException(
+                                    CancellationException(message)
+                                )
                             }
                         } finally {
                             response.close()
@@ -105,7 +130,9 @@ class ApiClient(private val client: OkHttpClient, private val moshi: Moshi) {
                     }
 
                     override fun onFailure(call: Call, e: IOException) {
-                        continuation.resumeWithException(CancellationException(e.message))
+                        continuation.resumeWithException(
+                            CancellationException(e.message)
+                        )
                     }
                 })
 
@@ -118,13 +145,24 @@ class ApiClient(private val client: OkHttpClient, private val moshi: Moshi) {
                 }
             }
         }
-
-        companion object {
-
-            internal suspend inline fun <reified T> Builder.get() = this.requestGet().executeRequest<T>()
-            internal suspend inline fun <reified T> Builder.get(block: Builder.() -> Unit) = this.apply(block).requestGet().executeRequest<T>()
-            internal suspend inline fun <reified T> Builder.post(obj: JSONObject) = this.requestPost(obj).executeRequest<T>()
-            internal suspend inline fun <reified T> Builder.post(obj: JSONObject, block: Builder.() -> Unit) = this.apply(block).requestPost(obj).executeRequest<T>()
-        }
     }
 }
+
+internal suspend inline fun <reified T> ApiClient.Builder.get() =
+    this.requestGet().executeRequest<T>()
+
+internal suspend inline fun <reified T> ApiClient.Builder.get(
+    block: ApiClient.Builder.() -> Unit
+) =
+    this.apply(block).requestGet().executeRequest<T>()
+
+internal suspend inline fun <reified T> ApiClient.Builder.post(
+    obj: JSONObject
+) =
+    this.requestPost(obj).executeRequest<T>()
+
+internal suspend inline fun <reified T> ApiClient.Builder.post(
+    obj: JSONObject,
+    block: ApiClient.Builder.() -> Unit
+) =
+    this.apply(block).requestPost(obj).executeRequest<T>()

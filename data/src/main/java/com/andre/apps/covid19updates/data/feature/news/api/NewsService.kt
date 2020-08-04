@@ -1,8 +1,8 @@
 package com.andre.apps.covid19updates.data.feature.news.api
 
 import com.andre.apps.covid19updates.data.base.ApiClient
-import com.andre.apps.covid19updates.data.base.ApiClient.Builder.Companion.get
 import com.andre.apps.covid19updates.data.base.UrlType
+import com.andre.apps.covid19updates.data.base.get
 import com.andre.apps.covid19updates.data.feature.news.response.NewsResponse
 import javax.inject.Inject
 

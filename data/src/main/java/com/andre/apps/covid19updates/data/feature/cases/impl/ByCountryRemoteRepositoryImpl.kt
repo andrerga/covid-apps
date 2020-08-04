@@ -9,9 +9,14 @@ import com.andre.apps.covid19updates.data.base.BaseImpl
 import com.andre.apps.covid19updates.data.feature.cases.api.ByCountryService
 import javax.inject.Inject
 
-class ByCountryRemoteRepositoryImpl @Inject constructor(private val service: ByCountryService) : BaseImpl(), ByCountryRemoteRepository {
+class ByCountryRemoteRepositoryImpl @Inject constructor(
+    private val service: ByCountryService
+) : BaseImpl(), ByCountryRemoteRepository {
 
-    override suspend fun getDataByCases(countrySlug: String, caseType: CaseType): Result<List<CaseByCountry>> {
+    override suspend fun getDataByCases(
+        countrySlug: String,
+        caseType: CaseType
+    ): Result<List<CaseByCountry>> {
         return getResult(
             { service.getCasesByCountry(countrySlug, caseType.string) },
             {

@@ -1,7 +1,7 @@
 package com.andre.apps.covid19updates.data.feature.cases.api
 
 import com.andre.apps.covid19updates.data.base.ApiClient
-import com.andre.apps.covid19updates.data.base.ApiClient.Builder.Companion.get
+import com.andre.apps.covid19updates.data.base.get
 import com.andre.apps.covid19updates.data.feature.cases.response.CaseByCountryResponse
 import javax.inject.Inject
 

@@ -24,11 +24,13 @@ class HomeFragment : Fragment(), Injectable {
     private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = HomeFragmentBinding
             .inflate(inflater, container, false)
-
         return binding.root
     }
 

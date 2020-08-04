@@ -19,10 +19,13 @@ fun Fragment.getNavArgsInstance(): NavArgs? {
     val className = "${this::class.java.canonicalName}$safeArgsClassSuffix"
 
     @Suppress("UNCHECKED_CAST")
-    val navArgsClass = requireNotNull(getArgNavClass(className)) {
-        // This may happen when nav graph resource does not define arguments for particular fragment
-        "Fragment $className has arguments, but corresponding navArgs class $className does not exist."
-    }
+    val navArgsClass =
+        requireNotNull(getArgNavClass(className)) {
+            // This may happen when nav graph resource does not define arguments
+            // for particular fragment
+            "Fragment $className has arguments, " +
+                "but corresponding navArgs class $className does not exist."
+        }
 
     // Let's check if Args class actually exists
     val navArgs by NavArgsLazy(navArgsClass) { arguments }

@@ -17,6 +17,9 @@ interface SummaryTestComponent {
     @Component.Factory
     interface Factory {
 
-        fun create(@BindsInstance remote: SummaryRemoteRepository, @BindsInstance local: SummaryLocalRepository): SummaryTestComponent
+        fun create(
+            @BindsInstance remote: SummaryRemoteRepository,
+            @BindsInstance local: SummaryLocalRepository
+        ): SummaryTestComponent
     }
 }

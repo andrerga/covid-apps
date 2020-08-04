@@ -78,17 +78,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleActivity() {
-        supportFragmentManager.registerFragmentLifecycleCallbacks(object : FragmentManager.FragmentLifecycleCallbacks() {
-            override fun onFragmentCreated(
-                fm: FragmentManager,
-                f: Fragment,
-                savedInstanceState: Bundle?
-            ) {
-                super.onFragmentCreated(fm, f, savedInstanceState)
+        supportFragmentManager.registerFragmentLifecycleCallbacks(
+            object : FragmentManager.FragmentLifecycleCallbacks() {
+                override fun onFragmentCreated(
+                    fm: FragmentManager,
+                    f: Fragment,
+                    savedInstanceState: Bundle?
+                ) {
+                    super.onFragmentCreated(fm, f, savedInstanceState)
 
-                navManager.setArgsEvent(f::getNavArgsInstance)
-            }
-        }, true)
+                    navManager.setArgsEvent(f::getNavArgsInstance)
+                }
+            }, true)
     }
 
     private fun setNavigation() {

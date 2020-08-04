@@ -7,9 +7,14 @@ import com.andre.apps.covid19updates.core.util.DefaultDispatcherProvider
 import com.andre.apps.covid19updates.core.util.DispatcherProvider
 import javax.inject.Inject
 
-class GetSummary @Inject constructor(private val remote: SummaryRemoteRepository, private val local: SummaryLocalRepository) : Usecase() {
+class GetSummary @Inject constructor(
+    private val remote: SummaryRemoteRepository,
+    private val local: SummaryLocalRepository
+) : Usecase() {
 
-    fun execute(dispatcherProvider: DispatcherProvider = DefaultDispatcherProvider()) =
+    fun execute(
+        dispatcherProvider: DispatcherProvider = DefaultDispatcherProvider()
+    ) =
         retrieveNetworkAndSync(
             { local.getSavedGlobalSummary() },
             { remote.getAllSummary() },

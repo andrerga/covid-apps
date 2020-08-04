@@ -11,7 +11,6 @@ import com.andre.apps.covid19updates.core.feature.summary.usecase.GetSummary
 import com.andre.apps.covid19updates.core.getOrAwaitValue
 import com.andre.apps.covid19updates.core.runBlockingTest
 import com.andre.apps.covid19updates.core.util.parseToDate
-import kotlinx.coroutines.flow.collect
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -82,32 +81,9 @@ class SummaryUnitTest {
                 )
             ))
 
-            `when`(localRepository.getSavedGlobalSummary()).thenReturn(
-                Home(
-                    newConfirmed = 100282,
-                    totalConfirmed = 1162857,
-                    newDeaths = 5658,
-                    totalDeaths = 63263,
-                    newRecovered = 15405,
-                    totalRecovered = 230845,
-                    lastUpdated = "2020-04-05T06:37:00Z".parseToDate(),
-                    countries = listOf(
-                        CountryItem(
-                            countryName = "Albania",
-                            countrySlug = "AL",
-                            newConfirmed = 29,
-                            totalConfirmed = 333,
-                            newRecovered = 10,
-                            totalRecovered = 99,
-                            newDeaths = 3,
-                            totalDeaths = 20,
-                            lastUpdated = "2020-04-05T06:37:00Z".parseToDate()
-                        )
-                    )
-                )
-            )
-
-            val result = getSummary.execute(coroutinesRule.testDispatcherProvider).getOrAwaitValue()
+            val result = getSummary.execute(
+                coroutinesRule.testDispatcherProvider
+            ).getOrAwaitValue()
             assertEquals(Result.Status.SUCCESS, result.status)
         }
     }

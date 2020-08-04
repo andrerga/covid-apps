@@ -3,7 +3,6 @@ package com.andre.apps.covid19updates.data.feature.summary.entity
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
 import io.objectbox.annotation.NameInDb
-import io.objectbox.relation.ToOne
 import java.util.*
 
 @Entity

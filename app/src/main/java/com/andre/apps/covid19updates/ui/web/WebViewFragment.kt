@@ -20,8 +20,11 @@ class WebViewFragment : Fragment() {
 
     private val args: WebViewFragmentArgs by navArgs()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         _binding = WebViewFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -55,9 +58,6 @@ class WebViewFragment : Fragment() {
             clearCache(true)
             onPause()
             removeAllViews()
-
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P)
-                destroyDrawingCache()
 
             pauseTimers()
             destroy()

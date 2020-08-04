@@ -20,6 +20,7 @@
 -dontskipnonpubliclibraryclasses
 -verbose
 -keepattributes *Annotation*
+#noinspection ShrinkerUnresolvedReference
 -keep public class com.google.vending.licensing.ILicensingService
 -keep public class com.android.vending.licensing.ILicensingService
 # For native methods, see http://proguard.sourceforge.net/manual/examples.html#native
@@ -42,6 +43,7 @@
     public static ** valueOf(java.lang.String);
 }
 -keepclassmembers class * implements android.os.Parcelable {
+  #noinspection ShrinkerUnresolvedReference
   public static final android.os.Parcelable$Creator CREATOR;
 }
 -keepclassmembers class **.R$* {
@@ -101,3 +103,21 @@
 -dontwarn org.mockito.**
 
 ##---------------End: proguard configuration for AndroidTest  ----------
+
+##---------------Begin: proguard configuration for Kotlin  ----------
+
+-keep class kotlin.** { *; }
+-keep class kotlin.Metadata { *; }
+-dontwarn kotlin.**
+-keepclassmembers class **$WhenMappings {
+    <fields>;
+}
+-keepclassmembers class kotlin.Metadata {
+    public <methods>;
+}
+-assumenosideeffects class kotlin.jvm.internal.Intrinsics {
+    static void checkParameterIsNotNull(java.lang.Object, java.lang.String);
+}
+
+##---------------End: proguard configuration for Kotlin  ----------
+

@@ -6,7 +6,9 @@ import androidx.lifecycle.LifecycleRegistry
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 
-open class BoundViewHolder<out T : ViewBinding> constructor(val binding: T) : RecyclerView.ViewHolder(binding.root), LifecycleOwner {
+open class BoundViewHolder<out T : ViewBinding>(
+    val binding: T
+) : RecyclerView.ViewHolder(binding.root), LifecycleOwner {
 
     private val lifecycleRegistry by lazy { LifecycleRegistry(this) }
 

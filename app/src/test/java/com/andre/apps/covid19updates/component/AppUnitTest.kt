@@ -83,7 +83,14 @@ class AppUnitTest {
             `when`(newsRemoteRepository.getCurrentNews(anyInt())).thenReturn(Result.success(News(
                 1,
                 listOf(
-                    NewsItem("Title", "16-04-2020".parseToDate("dd-MM-yyyy"), "Subtitle", "John Doe", null, "www.123.xyz", "ABC News")
+                    NewsItem(
+                        headline = "Title",
+                        date = "16-04-2020".parseToDate("dd-MM-yyyy"),
+                        subtitle = "Subtitle",
+                        editorName = "John Doe",
+                        imageUrl = null,
+                        contentUrl = "www.123.xyz",
+                        source = "ABC News")
                 ))
             ))
 

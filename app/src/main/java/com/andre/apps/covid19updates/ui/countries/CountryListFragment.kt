@@ -21,9 +21,16 @@ class CountryListFragment : Fragment(), Injectable {
 
     private lateinit var adapter: CountryListAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        _binding = CountryListFragmentBinding.inflate(inflater, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = CountryListFragmentBinding.inflate(
+            inflater,
+            container,
+            false
+        )
         return binding.root
     }
 

@@ -4,12 +4,12 @@ import androidx.lifecycle.*
 import com.andre.apps.covid19updates.core.feature.Result
 import com.andre.apps.covid19updates.core.feature.summary.model.CountryItem
 import com.andre.apps.covid19updates.core.feature.summary.usecase.GetCountryInfo
-import com.andre.apps.covid19updates.core.util.DefaultDispatcherProvider
-import com.andre.apps.covid19updates.core.util.DispatcherProvider
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class CountryListViewModel @Inject constructor(private val getCountryInfo: GetCountryInfo, private val dispatcherProvider: DispatcherProvider = DefaultDispatcherProvider()) : ViewModel() {
+class CountryListViewModel @Inject constructor(
+    private val getCountryInfo: GetCountryInfo
+) : ViewModel() {
 
     private val _items = MediatorLiveData<Result<List<CountryItem>>>()
     val items get() = _items as LiveData<Result<List<CountryItem>>>

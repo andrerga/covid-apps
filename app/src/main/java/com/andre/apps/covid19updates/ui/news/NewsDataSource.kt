@@ -8,9 +8,17 @@ import com.andre.apps.covid19updates.core.util.DispatcherProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-class NewsDataSource(private val repository: NewsRemoteRepository, private val scope: CoroutineScope, private val dispatcherProvider: DispatcherProvider = DefaultDispatcherProvider()) : PageKeyedDataSource<Int, NewsItem>() {
+class NewsDataSource(
+    private val repository: NewsRemoteRepository,
+    private val scope: CoroutineScope,
+    private val dispatcherProvider: DispatcherProvider =
+        DefaultDispatcherProvider()
+) : PageKeyedDataSource<Int, NewsItem>() {
 
-    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, NewsItem>) {
+    override fun loadInitial(
+        params: LoadInitialParams<Int>,
+        callback: LoadInitialCallback<Int, NewsItem>
+    ) {
         scope.launch(dispatcherProvider.io()) {
             val res = repository.getCurrentNews(1)
             callback.onResult(res.data!!.items, null, 2)

@@ -5,7 +5,10 @@ import timber.log.Timber
 
 abstract class BaseImpl {
 
-    protected suspend fun <T1, T2> getResult(call: suspend () -> T1, mapper: (T1) -> T2): Result<T2> {
+    protected suspend fun <T1, T2> getResult(
+        call: suspend () -> T1,
+        mapper: (T1) -> T2
+    ): Result<T2> {
         return try {
             val response = call.invoke()
             Result.success(mapper(response))

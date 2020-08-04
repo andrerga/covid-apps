@@ -5,8 +5,6 @@ import android.content.Context
 import com.andre.apps.covid19updates.nav.NavManager
 import dagger.Module
 import dagger.Provides
-import dagger.android.AndroidInjectionModule
-import dagger.android.support.AndroidSupportInjectionModule
 
 @Module
 class AppModule {

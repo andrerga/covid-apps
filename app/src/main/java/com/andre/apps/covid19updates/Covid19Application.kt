@@ -60,15 +60,20 @@ class Covid19Application : DaggerApplication(), Application.ActivityLifecycleCal
         AndroidInjection.inject(activity)
 
         if (activity is FragmentActivity) {
-            activity.supportFragmentManager.registerFragmentLifecycleCallbacks(object : FragmentManager.FragmentLifecycleCallbacks() {
-                override fun onFragmentCreated(fm: FragmentManager, f: Fragment, savedInstanceState: Bundle?) {
-                    super.onFragmentCreated(fm, f, savedInstanceState)
+            activity.supportFragmentManager.registerFragmentLifecycleCallbacks(
+                object : FragmentManager.FragmentLifecycleCallbacks() {
+                    override fun onFragmentCreated(
+                        fm: FragmentManager,
+                        f: Fragment,
+                        savedInstanceState: Bundle?
+                    ) {
+                        super.onFragmentCreated(fm, f, savedInstanceState)
 
-                    if (f is Injectable) {
-                        AndroidSupportInjection.inject(f)
+                        if (f is Injectable) {
+                            AndroidSupportInjection.inject(f)
+                        }
                     }
-                }
-            }, true)
+                }, true)
         }
     }
 }

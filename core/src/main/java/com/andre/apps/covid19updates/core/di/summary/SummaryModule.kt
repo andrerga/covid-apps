@@ -12,13 +12,18 @@ class SummaryModule {
 
     @Provides
     @SummaryScope
-    fun provideGetSummary(remote: SummaryRemoteRepository, local: SummaryLocalRepository): GetSummary {
+    fun provideGetSummary(
+        remote: SummaryRemoteRepository,
+        local: SummaryLocalRepository
+    ): GetSummary {
         return GetSummary(remote, local)
     }
 
     @Provides
     @SummaryScope
-    fun provideGetCountryItems(local: SummaryLocalRepository): GetCountryInfo {
+    fun provideGetCountryItems(
+        local: SummaryLocalRepository
+    ): GetCountryInfo {
         return GetCountryInfo(local)
     }
 }

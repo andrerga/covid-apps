@@ -3,7 +3,6 @@ package com.andre.apps.covid19updates.di.news
 import androidx.lifecycle.ViewModel
 import com.andre.apps.covid19updates.di.vmf.ViewModelKey
 import com.andre.apps.covid19updates.di.vmf.ViewModelModule
-import com.andre.apps.covid19updates.ui.home.HomeViewModel
 import com.andre.apps.covid19updates.ui.news.NewsViewModel
 import dagger.Binds
 import dagger.Module

@@ -9,7 +9,9 @@ import com.andre.apps.covid19updates.data.base.BaseImpl
 import com.andre.apps.covid19updates.data.feature.news.api.NewsService
 import javax.inject.Inject
 
-class NewsRemoteRepositoryImpl @Inject constructor(private val service: NewsService) : BaseImpl(), NewsRemoteRepository {
+class NewsRemoteRepositoryImpl @Inject constructor(
+    private val service: NewsService
+) : BaseImpl(), NewsRemoteRepository {
 
     override suspend fun getCurrentNews(page: Int): Result<News> =
         getResult(

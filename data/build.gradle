@@ -51,8 +51,8 @@ android {
 }
 
 ext {
-    okhttpVersion = "3.12.2"
-    moshiVersion = "1.9.2"
+    okhttpVersion = '3.12.2'
+    moshiVersion = '1.9.3'
 }
 
 dependencies {

@@ -9,7 +9,9 @@ import com.andre.apps.covid19updates.data.base.BaseImpl
 import com.andre.apps.covid19updates.data.feature.summary.api.HomeService
 import javax.inject.Inject
 
-class SummaryRemoteRepositoryImpl @Inject constructor(private val service: HomeService) : BaseImpl(), SummaryRemoteRepository {
+class SummaryRemoteRepositoryImpl @Inject constructor(
+    private val service: HomeService
+) : BaseImpl(), SummaryRemoteRepository {
 
     override suspend fun getAllSummary(): Result<Home> {
 

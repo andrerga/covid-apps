@@ -42,7 +42,7 @@ ext {
     threeTenVersion = '1.2.2'
     timberVersion = '4.7.1'
     truthVersion = '1.0.1'
-    workVersion = '2.3.4'
+    workVersion = '2.4.0'
 }
 
 dependencies {

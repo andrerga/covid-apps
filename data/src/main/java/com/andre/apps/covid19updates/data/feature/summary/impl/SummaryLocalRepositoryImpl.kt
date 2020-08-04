@@ -5,9 +5,7 @@ import com.andre.apps.covid19updates.core.feature.summary.model.Home
 import com.andre.apps.covid19updates.core.feature.summary.repo.SummaryLocalRepository
 import com.andre.apps.covid19updates.data.base.ObjectBox
 import com.andre.apps.covid19updates.data.feature.summary.entity.CountryItemEntity
-import com.andre.apps.covid19updates.data.feature.summary.entity.CountryItemEntity_
 import com.andre.apps.covid19updates.data.feature.summary.entity.HomeEntity
-import com.andre.apps.covid19updates.data.feature.summary.entity.HomeEntity_
 import io.objectbox.Box
 import io.objectbox.kotlin.boxFor
 import kotlin.coroutines.resume
