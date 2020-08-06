@@ -32,7 +32,7 @@ class ByCountryUnitTest {
     @Mock
     lateinit var repository: ByCountryRemoteRepository
 
-    lateinit var getCasesByCountry: GetCasesByCountry
+    private lateinit var getCasesByCountry: GetCasesByCountry
 
     @Before
     fun setup() {
@@ -45,12 +45,12 @@ class ByCountryUnitTest {
     }
 
     @Test
-    fun addition_isCorrect() {
+    fun `is addition correct`() {
         assertEquals(4, 2 + 2)
     }
 
     @Test
-    fun test_ExecuteMock() {
+    fun `test execute cases`() {
         coroutinesRule.runBlockingTest {
             `when`(
                 repository.getDataByCases(
@@ -71,8 +71,9 @@ class ByCountryUnitTest {
             )
 
             val result = getCasesByCountry.execute(
-                "switzerland", CaseType.Confirmed,
-                coroutinesRule.testDispatcherProvider
+                slug = "switzerland",
+                caseType = CaseType.Confirmed,
+                dispatcherProvider = coroutinesRule.testDispatcherProvider
             ).getOrAwaitValue()
             assertEquals(Result.Status.SUCCESS, result.status)
         }
