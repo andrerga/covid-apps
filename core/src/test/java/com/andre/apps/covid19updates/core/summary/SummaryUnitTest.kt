@@ -36,7 +36,7 @@ class SummaryUnitTest {
     @Mock
     lateinit var localRepository: SummaryLocalRepository
 
-    lateinit var getSummary: GetSummary
+    private lateinit var getSummary: GetSummary
 
     @Before
     fun setup() {

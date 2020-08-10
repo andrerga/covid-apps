@@ -7,7 +7,7 @@ import com.andre.apps.covid19updates.common.BoundListAdapter
 import com.andre.apps.covid19updates.core.feature.summary.model.CountryItem
 import com.andre.apps.covid19updates.databinding.CountryListItemBinding
 
-class CountryListAdapter :
+class CountryListAdapter(private val viewModel: CountryListViewModel) :
     BoundListAdapter<CountryItem, CountryListItemBinding>(
         diffCallback = object : DiffUtil.ItemCallback<CountryItem>() {
             override fun areItemsTheSame(
@@ -42,5 +42,9 @@ class CountryListAdapter :
         binding.recoveredCountText.text = item.totalRecovered.toString()
         binding.confirmedCountText.text = item.totalConfirmed.toString()
         binding.deathsCountText.text = item.totalDeaths.toString()
+
+        binding.parent.setOnClickListener {
+            viewModel.selectItem(item)
+        }
     }
 }

@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.map
 import com.andre.apps.covid19updates.databinding.HomeFragmentBinding
 import com.andre.apps.covid19updates.di.Injectable
@@ -19,7 +21,10 @@ class HomeFragment : Fragment(), Injectable {
     }
 
     @Inject
-    lateinit var viewModel: HomeViewModel
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    // Lazy load viewModel, not shared
+    private val viewModel by viewModels<HomeViewModel> { viewModelFactory }
 
     private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!

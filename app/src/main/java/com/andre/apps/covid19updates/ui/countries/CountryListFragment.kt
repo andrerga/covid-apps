@@ -5,16 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.andre.apps.covid19updates.core.feature.Result
 import com.andre.apps.covid19updates.databinding.CountryListFragmentBinding
 import com.andre.apps.covid19updates.di.Injectable
+import com.andre.apps.covid19updates.ui.MainActivity
 import javax.inject.Inject
 
 class CountryListFragment : Fragment(), Injectable {
 
     @Inject
-    lateinit var viewModel: CountryListViewModel
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    // Lazy load viewModel, shared by main activity
+    private val viewModel by viewModels<CountryListViewModel>({ activity as MainActivity }) { viewModelFactory }
 
     private var _binding: CountryListFragmentBinding? = null
     private val binding get() = _binding!!
@@ -41,7 +47,7 @@ class CountryListFragment : Fragment(), Injectable {
     }
 
     private fun initializeList() {
-        adapter = CountryListAdapter()
+        adapter = CountryListAdapter(viewModel)
         binding.countryRecycler.addItemDecoration(CountryListItemDivider(context))
         binding.countryRecycler.adapter = adapter
 

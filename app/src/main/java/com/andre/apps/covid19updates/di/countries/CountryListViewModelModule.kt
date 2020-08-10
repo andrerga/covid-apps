@@ -14,5 +14,5 @@ abstract class CountryListViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(CountryListViewModel::class)
-    abstract fun bindCountryListViewModel(countryListViewModel: CountryListViewModel): ViewModel
+    abstract fun bindViewModel(viewModel: CountryListViewModel): ViewModel
 }

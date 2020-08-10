@@ -14,5 +14,5 @@ abstract class NewsViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(NewsViewModel::class)
-    abstract fun bindNewsViewModel(newsViewModel: NewsViewModel): ViewModel
+    abstract fun bindViewModel(viewModel: NewsViewModel): ViewModel
 }

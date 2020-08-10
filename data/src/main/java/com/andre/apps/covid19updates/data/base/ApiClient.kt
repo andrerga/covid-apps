@@ -81,7 +81,9 @@ class ApiClient(private val client: OkHttpClient, private val moshi: Moshi) {
 
         private suspend inline fun <reified T> Call.await(): T {
             return suspendCancellableCoroutine { continuation ->
+
                 enqueue(object : Callback {
+
                     override fun onResponse(call: Call, response: Response) {
                         val value = response.body()!!
                         try {
@@ -119,7 +121,9 @@ class ApiClient(private val client: OkHttpClient, private val moshi: Moshi) {
                                 }
 
                                 val chunk = returns[1]
-                                val message = chunk.substring(chunk.indexOf("=") + 1)
+                                val message = chunk.substring(
+                                    chunk.indexOf("=") + 1
+                                )
                                 continuation.resumeWithException(
                                     CancellationException(message)
                                 )
