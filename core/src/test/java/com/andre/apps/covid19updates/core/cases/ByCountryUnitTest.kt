@@ -40,7 +40,7 @@ class ByCountryUnitTest {
 
         getCasesByCountry = DaggerByCountryTestComponent
             .factory()
-            .create(repository)
+            .create(repository, coroutinesRule.testDispatcherProvider)
             .getCasesByCountry()
     }
 
@@ -72,8 +72,7 @@ class ByCountryUnitTest {
 
             val result = getCasesByCountry.execute(
                 slug = "switzerland",
-                caseType = CaseType.Confirmed,
-                dispatcherProvider = coroutinesRule.testDispatcherProvider
+                caseType = CaseType.Confirmed
             ).getOrAwaitValue()
             assertEquals(Result.Status.SUCCESS, result.status)
         }

@@ -44,7 +44,7 @@ class SummaryUnitTest {
 
         getSummary = DaggerSummaryTestComponent
             .factory()
-            .create(remoteRepository, localRepository)
+            .create(coroutinesRule.testDispatcherProvider, remoteRepository, localRepository)
             .getSummary()
     }
 
@@ -81,9 +81,7 @@ class SummaryUnitTest {
                 )
             ))
 
-            val result = getSummary.execute(
-                coroutinesRule.testDispatcherProvider
-            ).getOrAwaitValue()
+            val result = getSummary.execute().getOrAwaitValue()
             assertEquals(Result.Status.SUCCESS, result.status)
         }
     }

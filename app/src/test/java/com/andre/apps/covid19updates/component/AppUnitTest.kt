@@ -94,7 +94,7 @@ class AppUnitTest {
                 ))
             ))
 
-            val result = getNews.execute(1, coroutinesRule.testDispatcherProvider).getOrAwaitValue()
+            val result = getNews.execute(1).getOrAwaitValue()
             assertEquals(Result.Status.SUCCESS, result.status)
         }
     }

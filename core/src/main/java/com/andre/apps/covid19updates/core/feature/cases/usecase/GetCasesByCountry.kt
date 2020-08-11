@@ -7,16 +7,13 @@ import com.andre.apps.covid19updates.core.util.DispatcherProvider
 import javax.inject.Inject
 
 class GetCasesByCountry @Inject constructor(
-    private val remote: ByCountryRemoteRepository
-) : Usecase() {
+    private val remote: ByCountryRemoteRepository,
+    private val dispatcherProvider: DispatcherProvider
+) : Usecase(dispatcherProvider) {
 
     fun execute(
         slug: String,
-        caseType: CaseType,
-        dispatcherProvider: DispatcherProvider
+        caseType: CaseType
     ) =
-        retrieveNetwork(
-            { remote.getDataByCases(slug, caseType) },
-            dispatcherProvider
-        )
+        retrieveNetwork { remote.getDataByCases(slug, caseType) }
 }

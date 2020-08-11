@@ -3,6 +3,7 @@ package com.andre.apps.covid19updates.core.cases
 import com.andre.apps.covid19updates.core.di.cases.ByCountrySubcomponent
 import com.andre.apps.covid19updates.core.feature.cases.repo.ByCountryRemoteRepository
 import com.andre.apps.covid19updates.core.feature.cases.usecase.GetCasesByCountry
+import com.andre.apps.covid19updates.core.util.DispatcherProvider
 import dagger.BindsInstance
 import dagger.Component
 
@@ -16,6 +17,6 @@ interface ByCountryTestComponent {
     @Component.Factory
     interface Factory {
 
-        fun create(@BindsInstance remote: ByCountryRemoteRepository): ByCountryTestComponent
+        fun create(@BindsInstance remote: ByCountryRemoteRepository, @BindsInstance dispatcherProvider: DispatcherProvider): ByCountryTestComponent
     }
 }

@@ -3,6 +3,7 @@ package com.andre.apps.covid19updates.core.news
 import com.andre.apps.covid19updates.core.di.news.NewsSubcomponent
 import com.andre.apps.covid19updates.core.feature.news.repo.NewsRemoteRepository
 import com.andre.apps.covid19updates.core.feature.news.usecase.GetNews
+import com.andre.apps.covid19updates.core.util.DispatcherProvider
 import dagger.BindsInstance
 import dagger.Component
 
@@ -16,6 +17,6 @@ interface NewsTestComponent {
     @Component.Factory
     interface Factory {
 
-        fun create(@BindsInstance remoteRepository: NewsRemoteRepository): NewsTestComponent
+        fun create(@BindsInstance remoteRepository: NewsRemoteRepository, @BindsInstance dispatcherProvider: DispatcherProvider): NewsTestComponent
     }
 }

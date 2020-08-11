@@ -26,7 +26,7 @@ class HomeViewModel @Inject constructor(
     fun loadData() {
         viewModelScope.launch {
             val summary =
-                getSummary.execute(dispatcherProvider).asLiveData(
+                getSummary.execute().asLiveData(
                     dispatcherProvider.io() + viewModelScope.coroutineContext
                 )
             global.addSource(summary) {

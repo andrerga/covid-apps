@@ -4,6 +4,7 @@ import com.andre.apps.covid19updates.core.di.summary.SummarySubcomponent
 import com.andre.apps.covid19updates.core.feature.summary.repo.SummaryLocalRepository
 import com.andre.apps.covid19updates.core.feature.summary.repo.SummaryRemoteRepository
 import com.andre.apps.covid19updates.core.feature.summary.usecase.GetSummary
+import com.andre.apps.covid19updates.core.util.DispatcherProvider
 import dagger.BindsInstance
 import dagger.Component
 
@@ -18,6 +19,7 @@ interface SummaryTestComponent {
     interface Factory {
 
         fun create(
+            @BindsInstance dispatcherProvider: DispatcherProvider,
             @BindsInstance remote: SummaryRemoteRepository,
             @BindsInstance local: SummaryLocalRepository
         ): SummaryTestComponent

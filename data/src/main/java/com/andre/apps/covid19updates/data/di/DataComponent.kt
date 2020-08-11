@@ -1,5 +1,6 @@
 package com.andre.apps.covid19updates.data.di
 
+import android.app.Application
 import com.andre.apps.covid19updates.core.feature.cases.repo.ByCountryRemoteRepository
 import com.andre.apps.covid19updates.core.feature.news.repo.NewsRemoteRepository
 import com.andre.apps.covid19updates.core.feature.summary.repo.SummaryLocalRepository
@@ -7,6 +8,7 @@ import com.andre.apps.covid19updates.core.feature.summary.repo.SummaryRemoteRepo
 import com.andre.apps.covid19updates.data.di.cases.ByCountryDataModule
 import com.andre.apps.covid19updates.data.di.news.NewsDataModule
 import com.andre.apps.covid19updates.data.di.summary.SummaryDataModule
+import dagger.BindsInstance
 import dagger.Component
 
 @Component(modules = [ByCountryDataModule::class, SummaryDataModule::class, NewsDataModule::class])
@@ -21,6 +23,6 @@ interface DataComponent {
     @Component.Factory
     interface Factory {
 
-        fun create(): DataComponent
+        fun create(@BindsInstance application: Application): DataComponent
     }
 }

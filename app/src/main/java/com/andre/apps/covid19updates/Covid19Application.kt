@@ -3,6 +3,7 @@ package com.andre.apps.covid19updates
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -33,7 +34,7 @@ class Covid19Application : DaggerApplication(), Application.ActivityLifecycleCal
             .dispatcherProvider(DefaultDispatcherProvider())
             .dataComponent(DaggerDataComponent
                 .factory()
-                .create())
+                .create(this))
             .coreComponent(DaggerCoreComponent
                 .factory()
                 .create())
@@ -74,6 +75,13 @@ class Covid19Application : DaggerApplication(), Application.ActivityLifecycleCal
                         }
                     }
                 }, true)
+        }
+    }
+
+    companion object {
+
+        init {
+            AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         }
     }
 }

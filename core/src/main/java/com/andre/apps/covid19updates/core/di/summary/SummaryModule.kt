@@ -4,6 +4,7 @@ import com.andre.apps.covid19updates.core.feature.summary.repo.SummaryLocalRepos
 import com.andre.apps.covid19updates.core.feature.summary.repo.SummaryRemoteRepository
 import com.andre.apps.covid19updates.core.feature.summary.usecase.GetCountryInfo
 import com.andre.apps.covid19updates.core.feature.summary.usecase.GetSummary
+import com.andre.apps.covid19updates.core.util.DispatcherProvider
 import dagger.Module
 import dagger.Provides
 
@@ -14,16 +15,18 @@ class SummaryModule {
     @SummaryScope
     fun provideGetSummary(
         remote: SummaryRemoteRepository,
-        local: SummaryLocalRepository
+        local: SummaryLocalRepository,
+        dispatcherProvider: DispatcherProvider
     ): GetSummary {
-        return GetSummary(remote, local)
+        return GetSummary(remote, local, dispatcherProvider)
     }
 
     @Provides
     @SummaryScope
     fun provideGetCountryItems(
-        local: SummaryLocalRepository
+        local: SummaryLocalRepository,
+        dispatcherProvider: DispatcherProvider
     ): GetCountryInfo {
-        return GetCountryInfo(local)
+        return GetCountryInfo(local, dispatcherProvider)
     }
 }

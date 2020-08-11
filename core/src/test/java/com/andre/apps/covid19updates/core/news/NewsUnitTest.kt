@@ -41,7 +41,7 @@ class NewsUnitTest {
 
         getNews = DaggerNewsTestComponent
             .factory()
-            .create(repository)
+            .create(repository, coroutinesRule.testDispatcherProvider)
             .getNews()
     }
 
@@ -76,8 +76,7 @@ class NewsUnitTest {
                 ))
 
             val result = getNews.execute(
-                1,
-                coroutinesRule.testDispatcherProvider
+                1
             ).getOrAwaitValue()
             assertEquals(Result.Status.SUCCESS, result.status)
         }

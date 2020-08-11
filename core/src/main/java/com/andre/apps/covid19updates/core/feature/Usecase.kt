@@ -4,13 +4,14 @@ import com.andre.apps.covid19updates.core.util.DispatcherProvider
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 
-abstract class Usecase {
+abstract class Usecase(
+    private val dispatcherProvider: DispatcherProvider
+) {
 
     protected fun <T> retrieveNetworkAndSync(
         dbQuery: () -> T?,
         networkCall: suspend () -> Result<T>,
-        saveCallResult: suspend (T) -> Unit,
-        dispatcherProvider: DispatcherProvider
+        saveCallResult: suspend (T) -> Unit
     ) =
         flow {
             emit(Result.loading())
@@ -33,8 +34,7 @@ abstract class Usecase {
         }
 
     protected fun <T> retrieveNetwork(
-        networkCall: suspend () -> Result<T>,
-        dispatcherProvider: DispatcherProvider
+        networkCall: suspend () -> Result<T>
     ) = flow {
         emit(Result.loading())
 
