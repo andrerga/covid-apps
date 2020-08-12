@@ -56,6 +56,7 @@ class CountryListFragment : Fragment(), Injectable {
                 Result.Status.SUCCESS -> adapter.submitList(it.data!!)
                 else -> adapter.submitList(emptyList())
             }
+            adapter.notifyDataSetChanged()
         })
 
         viewModel.getData()

@@ -5,6 +5,7 @@ import com.andre.apps.covid19updates.core.feature.Result
 import com.andre.apps.covid19updates.core.feature.summary.model.CountryItem
 import com.andre.apps.covid19updates.core.feature.summary.usecase.GetCountryInfo
 import com.andre.apps.covid19updates.nav.NavManager
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -13,7 +14,7 @@ class CountryListViewModel @Inject constructor(
     private val getCountryInfo: GetCountryInfo
 ) : ViewModel() {
 
-    private val _items = MediatorLiveData<Result<List<CountryItem>>>()
+    private val _items = MutableLiveData<Result<List<CountryItem>>>()
     val items get() = _items as LiveData<Result<List<CountryItem>>>
 
     private val _selectedItem = MutableLiveData<CountryItem>()
@@ -21,10 +22,10 @@ class CountryListViewModel @Inject constructor(
 
     fun getData() {
         viewModelScope.launch {
-            val data = getCountryInfo.execute().asLiveData()
-            _items.addSource(data) {
-                _items.postValue(it)
-            }
+            getCountryInfo.execute()
+                .collect {
+                    _items.postValue(it)
+                }
         }
     }
 
