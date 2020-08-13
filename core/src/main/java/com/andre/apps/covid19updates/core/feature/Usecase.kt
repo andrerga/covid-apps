@@ -9,7 +9,7 @@ abstract class Usecase(
 ) {
 
     protected fun <T> retrieveNetworkAndSync(
-        dbQuery: () -> T?,
+        dbQuery: suspend () -> T?,
         networkCall: suspend () -> Result<T>,
         saveCallResult: suspend (T) -> Unit
     ) =
@@ -26,7 +26,7 @@ abstract class Usecase(
             } else {
                 emit(Result.error(call.message!!, null))
 
-                val dbRes = withContext(dispatcherProvider.main()) { dbQuery.invoke() }
+                val dbRes = withContext(dispatcherProvider.io()) { dbQuery.invoke() }
                 if (dbRes != null) {
                     emit(Result.success(dbRes))
                 }
@@ -49,11 +49,13 @@ abstract class Usecase(
     }
 
     protected fun <T> retrieveLocal(
-        dbQuery: () -> T?
+        dbQuery: suspend () -> T?
     ) = flow {
         emit(Result.loading())
 
-        val dbRes = dbQuery.invoke()
+        val dbRes =
+            withContext(dispatcherProvider.io()) { dbQuery.invoke() }
+
         if (dbRes == null) {
             emit(Result.error(message = "No data retrieved"))
         } else {

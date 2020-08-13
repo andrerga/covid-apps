@@ -3,22 +3,19 @@ package com.andre.apps.covid19updates.data.feature.summary.impl
 import com.andre.apps.covid19updates.core.feature.summary.model.CountryItem
 import com.andre.apps.covid19updates.core.feature.summary.model.Home
 import com.andre.apps.covid19updates.core.feature.summary.repo.SummaryLocalRepository
-import com.andre.apps.covid19updates.data.base.ObjectBox
+import com.andre.apps.covid19updates.data.feature.summary.db.HomeDbService
 import com.andre.apps.covid19updates.data.feature.summary.entity.CountryItemEntity
 import com.andre.apps.covid19updates.data.feature.summary.entity.HomeEntity
-import io.objectbox.Box
-import io.objectbox.kotlin.boxFor
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
+import javax.inject.Inject
 
-class SummaryLocalRepositoryImpl : SummaryLocalRepository {
+class SummaryLocalRepositoryImpl @Inject constructor(
+    private val homeDbService: HomeDbService
+) : SummaryLocalRepository {
 
-    override fun getSavedGlobalSummary(): Home? {
-        val boxStore = ObjectBox.boxStore
+    override suspend fun getSavedGlobalSummary(): Home? {
 
-        val box: Box<HomeEntity> = boxStore.boxFor()
-        val entity = box.query().build().findFirst()
+        val entity = homeDbService.getSavedGlobalSummary()
+
         return if (entity == null) {
             null
         } else {
@@ -48,87 +45,37 @@ class SummaryLocalRepositoryImpl : SummaryLocalRepository {
     }
 
     override suspend fun saveGlobalSummary(summary: Home) {
-        val boxStore = ObjectBox.boxStore
-        return suspendCoroutine { continuation ->
-            boxStore.runInTxAsync({
-                val box: Box<HomeEntity> = boxStore.boxFor()
-                val entityQuery = box.query()
-                val entity = entityQuery.build().findFirst()
-                if (entity == null) {
-                    val newEntity = HomeEntity(
-                        newConfirmed = summary.newConfirmed,
-                        totalConfirmed = summary.totalConfirmed,
-                        newRecovered = summary.newRecovered,
-                        totalRecovered = summary.totalRecovered,
-                        newDeaths = summary.newDeaths,
-                        totalDeaths = summary.totalDeaths,
-                        lastRefreshed = summary.lastUpdated
-                    )
-                    for (item in summary.countries) {
-                        val itemEntity = CountryItemEntity(
-                            countryName = item.countryName,
-                            countrySlug = item.countrySlug,
-                            newConfirmed = item.newConfirmed,
-                            totalConfirmed = item.totalConfirmed,
-                            newDeaths = item.newDeaths,
-                            totalDeaths = item.totalDeaths,
-                            newRecovered = item.newRecovered,
-                            totalRecovered = item.totalRecovered,
-                            lastUpdated = item.lastUpdated
-                        )
+        val newEntity = HomeEntity(
+            newConfirmed = summary.newConfirmed,
+            totalConfirmed = summary.totalConfirmed,
+            newRecovered = summary.newRecovered,
+            totalRecovered = summary.totalRecovered,
+            newDeaths = summary.newDeaths,
+            totalDeaths = summary.totalDeaths,
+            lastRefreshed = summary.lastUpdated
+        )
+        for (item in summary.countries) {
+            val itemEntity = CountryItemEntity(
+                countryName = item.countryName,
+                countrySlug = item.countrySlug,
+                newConfirmed = item.newConfirmed,
+                totalConfirmed = item.totalConfirmed,
+                newDeaths = item.newDeaths,
+                totalDeaths = item.totalDeaths,
+                newRecovered = item.newRecovered,
+                totalRecovered = item.totalRecovered,
+                lastUpdated = item.lastUpdated
+            )
 
-                        newEntity.countries.add(itemEntity)
-                    }
-
-                    box.put(newEntity)
-                } else {
-                    val countriesBox: Box<CountryItemEntity> = boxStore.boxFor()
-                    countriesBox.removeAll()
-
-                    entity.newConfirmed = summary.newConfirmed
-                    entity.totalConfirmed = summary.totalConfirmed
-                    entity.newRecovered = summary.newRecovered
-                    entity.totalRecovered = summary.totalRecovered
-                    entity.newDeaths = summary.newDeaths
-                    entity.totalDeaths = summary.totalDeaths
-                    entity.lastRefreshed = summary.lastUpdated
-
-                    for (item in summary.countries) {
-                        val itemEntity = CountryItemEntity(
-                            countryName = item.countryName,
-                            countrySlug = item.countrySlug,
-                            newConfirmed = item.newConfirmed,
-                            totalConfirmed = item.totalConfirmed,
-                            newDeaths = item.newDeaths,
-                            totalDeaths = item.totalDeaths,
-                            newRecovered = item.newRecovered,
-                            totalRecovered = item.totalRecovered,
-                            lastUpdated = item.lastUpdated
-                        )
-
-                        entity.countries.add(itemEntity)
-                    }
-
-                    box.put(entity)
-                }
-            }, { _, error ->
-                if (error != null) {
-                    continuation.resumeWithException(error)
-                } else {
-                    continuation.resume(Unit)
-                }
-            })
+            newEntity.countries.add(itemEntity)
         }
+
+        homeDbService.saveGlobalSummary(newEntity)
     }
 
-    override fun getCountrySummary(): List<CountryItem>? {
-        val boxStore = ObjectBox.boxStore
+    override suspend fun getCountrySummary(): List<CountryItem>? {
 
-        val box: Box<HomeEntity> = boxStore.boxFor()
-        val builder = box.query()
-        val entity = builder.build().findFirst()
-        val countries = entity?.countries?.toList() ?: return null
-        return countries.map {
+        return homeDbService.getCountrySummary()?.map {
             CountryItem(
                 countryName = it.countryName,
                 countrySlug = it.countrySlug,

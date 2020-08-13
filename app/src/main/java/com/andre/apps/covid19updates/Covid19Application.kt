@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.andre.apps.covid19updates.core.di.DaggerCoreComponent
 import com.andre.apps.covid19updates.core.util.DefaultDispatcherProvider
-import com.andre.apps.covid19updates.data.base.ObjectBox
 import com.andre.apps.covid19updates.data.di.DaggerDataComponent
 import com.andre.apps.covid19updates.di.DaggerAppComponent
 import com.andre.apps.covid19updates.di.Injectable
@@ -23,7 +22,6 @@ class Covid19Application : DaggerApplication(), Application.ActivityLifecycleCal
     override fun onCreate() {
         super.onCreate()
 
-        ObjectBox.init(this)
         registerActivityLifecycleCallbacks(this)
     }
 
