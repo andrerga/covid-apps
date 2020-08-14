@@ -13,7 +13,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.andre.apps.covid19updates.R
 import com.andre.apps.covid19updates.databinding.MainActivityBinding
 import com.andre.apps.covid19updates.nav.NavManager
-import com.andre.apps.covid19updates.ui.home.HomeFragment
 import com.andre.apps.covid19updates.util.getNavArgsInstance
 import javax.inject.Inject
 
@@ -44,12 +43,6 @@ class MainActivity : AppCompatActivity() {
         handleActivity()
         initAnimation()
         setNavigation()
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, HomeFragment.newInstance())
-                .commitNow()
-        }
     }
 
     private fun initAnimation() {
