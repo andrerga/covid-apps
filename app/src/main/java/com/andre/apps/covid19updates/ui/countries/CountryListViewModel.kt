@@ -5,6 +5,7 @@ import com.andre.apps.covid19updates.core.feature.Result
 import com.andre.apps.covid19updates.core.feature.summary.model.CountryItem
 import com.andre.apps.covid19updates.core.feature.summary.usecase.GetCountryInfo
 import com.andre.apps.covid19updates.nav.NavManager
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -35,5 +36,11 @@ class CountryListViewModel @Inject constructor(
         navManager.navigate(
             CountryListFragmentDirections.actionCountryListFragmentToCountryDetailFragment()
         )
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
+        viewModelScope.cancel()
     }
 }

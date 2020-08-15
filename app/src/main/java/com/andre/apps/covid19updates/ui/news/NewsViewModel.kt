@@ -10,6 +10,7 @@ import com.andre.apps.covid19updates.core.feature.news.model.NewsItem
 import com.andre.apps.covid19updates.core.feature.news.repo.NewsRemoteRepository
 import com.andre.apps.covid19updates.core.util.DispatcherProvider
 import com.andre.apps.covid19updates.nav.NavManager
+import kotlinx.coroutines.cancel
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import javax.inject.Inject
@@ -55,5 +56,11 @@ class NewsViewModel @Inject constructor(
             ),
             extras
         )
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
+        viewModelScope.cancel()
     }
 }
