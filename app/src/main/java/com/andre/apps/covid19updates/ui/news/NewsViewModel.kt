@@ -21,10 +21,10 @@ class NewsViewModel @Inject constructor(
     private val dispatcherProvider: DispatcherProvider
 ) : ViewModel() {
 
-    private lateinit var _news: LivePagedListBuilder<Int, NewsItem>
+    private var _news: LivePagedListBuilder<Int, NewsItem>
     val news get() = _news.build()
 
-    fun initNews() {
+    init {
         val config = PagedList.Config.Builder()
             .setPageSize(20)
             .setEnablePlaceholders(false)

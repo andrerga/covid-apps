@@ -42,7 +42,6 @@ class NewsFragment : Fragment(), Injectable {
     }
 
     private fun initializeList() {
-        viewModel.initNews()
 
         adapter = NewsAdapter(viewModel)
         binding.newsRecycler.adapter = adapter

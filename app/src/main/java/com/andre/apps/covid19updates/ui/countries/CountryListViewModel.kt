@@ -32,6 +32,7 @@ class CountryListViewModel @Inject constructor(
 
     fun selectItem(item: CountryItem) {
         _selectedItem.postValue(item)
+
         // Go To Country detail
         navManager.navigate(
             CountryListFragmentDirections.actionCountryListFragmentToCountryDetailFragment()

@@ -16,10 +16,6 @@ import javax.inject.Inject
 
 class HomeFragment : Fragment(), Injectable {
 
-    companion object {
-        fun newInstance() = HomeFragment()
-    }
-
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -57,8 +53,6 @@ class HomeFragment : Fragment(), Injectable {
                 Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT)
             }
         })
-
-        viewModel.loadData()
     }
 
     override fun onDestroyView() {

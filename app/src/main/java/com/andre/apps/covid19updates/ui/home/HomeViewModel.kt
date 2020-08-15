@@ -7,16 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.andre.apps.covid19updates.core.feature.Result
 import com.andre.apps.covid19updates.core.feature.summary.model.Home
 import com.andre.apps.covid19updates.core.feature.summary.usecase.GetSummary
-import com.andre.apps.covid19updates.core.util.DefaultDispatcherProvider
-import com.andre.apps.covid19updates.core.util.DispatcherProvider
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
-    private val getSummary: GetSummary,
-    private val dispatcherProvider: DispatcherProvider =
-        DefaultDispatcherProvider()
+    private val getSummary: GetSummary
 ) : ViewModel() {
 
     private val global = MutableLiveData<Result<Home>>()
@@ -27,7 +23,8 @@ class HomeViewModel @Inject constructor(
 
     val errorMessage get() = global.map { it.message }
 
-    fun loadData() {
+    init {
+
         viewModelScope.launch {
             getSummary.execute()
                 .collect {
