@@ -14,7 +14,7 @@ class HomeDbService @Inject constructor(private val localDb: LocalDb) {
 
         return localDb.read {
             val box: Box<HomeEntity> = it.boxFor()
-            return@read box.query().build().findFirst()
+            box.query().build().findFirst()
         }
     }
 
@@ -42,8 +42,7 @@ class HomeDbService @Inject constructor(private val localDb: LocalDb) {
             val builder = box.query()
             builder.link(HomeEntity_.countries)
             val entity = builder.build().findFirst()
-            val li = entity?.countries?.toList()
-            return@read li ?: return@read null
+            entity?.countries?.toList()
         }
     }
 }
