@@ -57,7 +57,7 @@ abstract class Usecase(
             withContext(dispatcherProvider.io()) { dbQuery.invoke() }
 
         if (dbRes == null) {
-            emit(Result.error(message = "No data retrieved"))
+            emit(Result.error("No data retrieved", null))
         } else {
             emit(Result.success(dbRes))
         }

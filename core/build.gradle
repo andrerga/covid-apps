@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -42,7 +41,7 @@ ext {
     threeTenVersion = '1.2.2'
     timberVersion = '4.7.1'
     truthVersion = '1.0.1'
-    workVersion = '2.4.0'
+    workVersion = '2.5.0'
 }
 
 dependencies {

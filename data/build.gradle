@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'io.objectbox'
 
@@ -51,8 +50,8 @@ android {
 }
 
 ext {
-    okhttpVersion = '3.12.2'
-    moshiVersion = '1.9.3'
+    okhttpVersion = '3.14.7'
+    moshiVersion = '1.11.0'
 }
 
 dependencies {
