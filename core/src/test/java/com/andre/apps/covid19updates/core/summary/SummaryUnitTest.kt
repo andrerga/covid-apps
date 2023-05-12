@@ -50,7 +50,7 @@ class SummaryUnitTest {
 
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+        assertEquals(4, 2 + 3)
     }
 
     @Test
